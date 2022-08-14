@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface LibretaRepository extends JpaRepository<Libreta, Long> {
-    public List<Libreta> findByEstudentId(Long studentId );
-    public List<Libreta> findByCourseId(Long courseId );
+    //public List<Libreta> findByEstudentId(Long studentId );
+    //public List<Libreta> findByCourseId(Long courseId );
 }

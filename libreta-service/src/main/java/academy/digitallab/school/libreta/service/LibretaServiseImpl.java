@@ -1,17 +1,33 @@
 package academy.digitallab.school.libreta.service;
 
+import academy.digitallab.school.libreta.client.CourseClient;
+import academy.digitallab.school.libreta.client.StudentClient;
 import academy.digitallab.school.libreta.entity.Libreta;
+import academy.digitallab.school.libreta.model.Course;
+import academy.digitallab.school.libreta.model.Student;
 import academy.digitallab.school.libreta.repository.LibretaRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Date;
+import java.util.List;
 
 @Slf4j
 @Service
 public class LibretaServiseImpl implements LibretaService{
     @Autowired
     LibretaRepository libretaRepository;
+
+    @Autowired
+    StudentClient studentClient;
+
+    @Autowired
+    CourseClient courseClient;
+
+    @Override
+    public List<Libreta> findLibretaAll() {
+        return  libretaRepository.findAll();
+    }
 
     @Override
     public Libreta createLibreta(Libreta libreta) {
@@ -54,6 +70,14 @@ public class LibretaServiseImpl implements LibretaService{
 
     @Override
     public Libreta getLibreta(Long id) {
-        return libretaRepository.findById(id).orElse(null);
+        Libreta libreta = libretaRepository.findById(id).orElse(null);
+
+        Student student = studentClient.getStudent(libreta.getStudentId()).getBody();
+        Course course = courseClient.getCourse(libreta.getCourseId()).getBody();
+
+        libreta.setStudend(student);
+        libreta.setCourse(course);
+
+        return libreta;
     }
 }

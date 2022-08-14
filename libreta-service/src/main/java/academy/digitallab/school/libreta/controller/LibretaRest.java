@@ -26,6 +26,15 @@ public class LibretaRest {
     LibretaService libretaService;
 
     // -------------------Retrieve Single Invoice------------------------------------------
+    @GetMapping
+    public ResponseEntity<List<Libreta>> listAllInvoices() {
+        List<Libreta> libretas = libretaService.findLibretaAll();
+        if (libretas.isEmpty()) {
+            return  ResponseEntity.noContent().build();
+        }
+        return  ResponseEntity.ok(libretas);
+    }
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<Libreta> getLibreta(@PathVariable("id") long id) {
         log.info("Fetching Invoice with id {}", id);

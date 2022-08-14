@@ -1,18 +1,12 @@
 package academy.digitallab.school.libreta.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "tbl_libreta_notas")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 public class LibretaNota {
 
     @Id
